@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>ros_adafruit_bno055</name>
+  <version>0.0.0</version>
+  <description>Rosserial Adafruit BNO055 IMU node</description>
+
+  <license>BSD</license>
+
+  <maintainer email="maarten@vijfendertig.be">Maarten De Munck</maintainer>
+  <author email="maarten@vijfendertig.be">Maarten De Munck</author>
+
+  <!-- <url type="website">http://wiki.ros.org/compact_msgs</url> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>rosserial_arduino</depend>
+  <depend>rosserial_client</depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+
+</package>
