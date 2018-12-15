@@ -27,13 +27,14 @@ namespace ros_adafruit_bno055 {
       unsigned long int calibration_status_last_published_;
       struct StoredCalibrationData {
         // Add a valid field before and after the calibration data to detect interrupted writes.
-        bool valid_front;
+        uint8_t signature_front;
         adafruit_bno055_offsets_t data;
         ros::Time timestamp;
-        bool valid_rear;
+        uint8_t signature_rear;
       };
       static constexpr uint16_t calibration_slots_address_ = 0U;
-      static constexpr int8_t calibration_slots_count_ = 8U;
+      static constexpr uint8_t calibration_slots_count_ = 8U;
+      static constexpr uint8_t calibration_signature_ = 55U;
       int8_t current_calibration_slot_;
     public:  // Member functions.
       RosAdafruitBNO055(ros::NodeHandle * node_handle, unsigned long int measurements_publish_interval, unsigned long int calibration_status_publish_interval);

@@ -21,6 +21,7 @@ namespace ros_adafruit_bno055 {
   {
     measurements_message_.header.frame_id = "bno055";
     measurements_message_.header.seq = 0;
+    calibration_status_message_.last_saved = ros::Time();
     pinMode(LED_BUILTIN, OUTPUT);
   }
 
@@ -129,20 +130,20 @@ namespace ros_adafruit_bno055 {
 
 
   void RosAdafruitBNO055::resetStoredCalibrationData(StoredCalibrationData & data) {
-    data.valid_front = false;
-    data.data.accel_offset_x = 0;
-    data.data.accel_offset_y = 0;
-    data.data.accel_offset_z = 0;
-    data.data.mag_offset_x = 0;
-    data.data.mag_offset_y = 0;
-    data.data.mag_offset_z = 0;
-    data.data.gyro_offset_x = 0;
-    data.data.gyro_offset_y = 0;
-    data.data.gyro_offset_z = 0;
-    data.data.accel_radius = 0;
-    data.data.mag_radius = 0;
-    data.timestamp = ros::Time();
-    data.valid_rear = false;
+    data.signature_front = 0xff;
+    data.data.accel_offset_x = 0xffff;
+    data.data.accel_offset_y = 0xffff;
+    data.data.accel_offset_z = 0xffff;
+    data.data.mag_offset_x = 0xffff;
+    data.data.mag_offset_y = 0xffff;
+    data.data.mag_offset_z = 0xffff;
+    data.data.gyro_offset_x = 0xffff;
+    data.data.gyro_offset_y = 0xffff;
+    data.data.gyro_offset_z = 0xffff;
+    data.data.accel_radius = 0xffff;
+    data.data.mag_radius = 0xffff;
+    data.timestamp = ros::Time(0xffffffff, 0xffffffff);
+    data.signature_rear = 0xff;
   }
 
 
@@ -152,7 +153,8 @@ namespace ros_adafruit_bno055 {
     StoredCalibrationData stored_calibration;
     for(int8_t calibration_slot = 0; calibration_slot < calibration_slots_count_; ++ calibration_slot) {
       EEPROM.get(calibration_slots_address_ + calibration_slot * sizeof(StoredCalibrationData), stored_calibration);
-      if(stored_calibration.valid_front == true && stored_calibration.valid_rear == true
+      if(stored_calibration.signature_front == calibration_signature_
+         && stored_calibration.signature_rear == calibration_signature_
          && (stored_calibration.timestamp.sec > preferred_calibration_timestamp.sec
              || (stored_calibration.timestamp.sec == preferred_calibration_timestamp.sec
                  && stored_calibration.timestamp.nsec > preferred_calibration_timestamp.nsec))) {
@@ -164,6 +166,7 @@ namespace ros_adafruit_bno055 {
       current_calibration_slot_ = preferred_calibration_slot;
       EEPROM.get(calibration_slots_address_ + preferred_calibration_slot * sizeof(StoredCalibrationData), stored_calibration);
       sensor_.setSensorOffsets(stored_calibration.data);
+      calibration_status_message_.last_saved = stored_calibration.timestamp;
     }
   }
 
@@ -179,9 +182,11 @@ namespace ros_adafruit_bno055 {
       // Get calibration from sensor and write it to the calibration slot.
       if(sensor_.getSensorOffsets(new_calibration.data)) {
         new_calibration.timestamp = node_handle_->now();
-        new_calibration.valid_front = true;
-        new_calibration.valid_rear = true;
+        new_calibration.signature_front = calibration_signature_;
+        new_calibration.signature_rear = calibration_signature_;
         EEPROM.put(calibration_slots_address_ + new_calibration_slot * sizeof(StoredCalibrationData), new_calibration);
+        current_calibration_slot_ = new_calibration_slot;
+        calibration_status_message_.last_saved = new_calibration.timestamp;
       }
     }
   }
