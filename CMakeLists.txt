@@ -169,10 +169,16 @@ add_dependencies(${PROJECT_NAME}_ros_lib
   ${PROJECT_NAME}_generate_messages_cpp
 )
 
+if(ARDUINO_SDK_PATH)
+  set(TOOLCHAIN_ARDUINO_SDK_PATH "-DARDUINO_SDK_PATH=${ARDUINO_SDK_PATH}")
+else()
+  set(TOOLCHAIN_ARDUINO_SDK_PATH "")
+endif()
+
 rosserial_configure_client(
   DIRECTORY firmware
   TOOLCHAIN_FILE ${PROJECT_SOURCE_DIR}/tools/arduino-cmake/cmake/ArduinoToolchain.cmake
-  CMAKE_ARGUMENTS "-DARDUINO_SDK_PATH=/opt/arduino-1.8.8"
+  CMAKE_ARGUMENTS ${TOOLCHAIN_ARDUINO_SDK_PATH}
                   "-DARDUINO_CXX_FLAGS=\"-fno-threadsafe-statics\""
 )
 
