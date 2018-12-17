@@ -65,14 +65,14 @@ namespace ros_adafruit_bno055 {
       auto current = millis();
       if(current >= measurements_last_published_ + measurements_publish_interval_
           || current < measurements_last_published_) {
-        digitalWrite(LED_BUILTIN, HIGH);
         getAndPublishMeasurements();
-        digitalWrite(LED_BUILTIN, LOW);
         measurements_last_published_ += measurements_publish_interval_;    
       }
       if(current >= calibration_status_last_published_ + calibration_status_publish_interval_
           || current < calibration_status_last_published_) {
+        digitalWrite(LED_BUILTIN, HIGH);
         getAndPublishCalibrationStatus();
+        digitalWrite(LED_BUILTIN, LOW);
         calibration_status_last_published_ += calibration_status_publish_interval_;    
       }
     }
