@@ -11,14 +11,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   message_generation
+  roscpp
   geometry_msgs
+  sensor_msgs
   std_msgs
   rosserial_arduino
   rosserial_client
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS program_options)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -121,7 +123,23 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
+
+
+add_executable(imu_publisher_node
+  src/imu_publisher/imu_publisher_node.cpp
+  src/imu_publisher/imu_publisher.cpp)
+
+target_link_libraries(imu_publisher_node
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
+
+add_dependencies(imu_publisher_node
+  ros_adafruit_bno055_gencpp
+)
+
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
