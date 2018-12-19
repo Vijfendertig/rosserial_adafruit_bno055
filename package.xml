@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>Rosserial Adafruit BNO055 IMU node</description>
 
-  <license>BSD</license>
+  <license>MIT</license>
 
   <maintainer email="maarten@vijfendertig.be">Maarten De Munck</maintainer>
   <author email="maarten@vijfendertig.be">Maarten De Munck</author>
