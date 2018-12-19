@@ -37,11 +37,21 @@ namespace ros_adafruit_bno055 {
     full_message.header.stamp = compact_message->header.stamp;
     full_message.header.frame_id = compact_message->header.frame_id;
     full_message.orientation = compact_message->orientation;
-    full_message.orientation_covariance[0] = -1;  // TODO: add covariance matrix.
     full_message.angular_velocity = compact_message->angular_velocity;
-    full_message.angular_velocity_covariance[0] = -1;  // TODO: add covariance matrix.
     full_message.linear_acceleration = compact_message->linear_acceleration;
-    full_message.linear_acceleration_covariance[0] = -1;  // TODO: add covariance matrix.
+    // Covariances. The Bosch BNO055 datasheet is pretty useless regarding the sensor's accuracy.
+    // - The accuracy of the magnetometer is +-2.5deg. Users on online forums agree on that number.
+    // - The accuracy of the gyroscope is unknown. I use the +-3deg/s zero rate offset. To be tested.
+    // - The accuracy of the accelerometer is unknown. Based on the typical and maximum zero-g offset (+-80mg and
+    //   +-150mg) and the fact that my graphs look better than that, I use 80mg. To be tested.
+    // Cross-axis errors are not (yet) taken into account. To be tested.
+    for(unsigned row = 0; row < 3; ++ row) {
+      for(unsigned col = 0; col < 3; ++ col) {
+        full_message.orientation_covariance[row * 3 + col] = (row == col? 0.002: 0.);  // +-2.5deg
+        full_message.angular_velocity_covariance[row * 3 + col] = (row == col? 0.003: 0.);  // +-3deg/s
+        full_message.linear_acceleration_covariance[row * 3 + col] = (row == col? 0.60: 0.);  // +-80mg
+      }
+    }
     publisher_full_imu_.publish(full_message);
   }
 
