@@ -10,7 +10,7 @@
   <maintainer email="maarten@vijfendertig.be">Maarten De Munck</maintainer>
   <author email="maarten@vijfendertig.be">Maarten De Munck</author>
 
-  <!-- <url type="website">http://wiki.ros.org/compact_msgs</url> -->
+  <url type="repository">https://github.com/Vijfendertig/ros_adafruit_bno055</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>message_generation</build_depend>

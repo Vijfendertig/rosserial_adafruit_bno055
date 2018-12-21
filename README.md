@@ -29,7 +29,7 @@ Include the package in a ROS workspace. Both building (messages, firmware...) an
 Due to some internal details of rosserial_arduino's make_libraries.py script, building the package isn't as straightforward as I would like it to be. The problem is that to create our custom messages in the Arduino ros_lib library, rosserial_arduino's make_libraries.py script needs to source the workspace's setup script, which isn't available until the build is finished. See [https://github.com/ros-drivers/rosserial/issues/239] for more details. 
 The most elegant workaround I found is to exclude the firmware from the default catkin_make (or CMake) target and build it manually afterwards.
 
-So, to build the package including the firmware fot the Arduino Micro, run:
+So, to build the package including the firmware for the Arduino Micro, run:
 
 - `catkin_make -DARDUINO_SDK_PATH=/opt/arduino-1.8.8` (to build everything except the firmware)
 - `. ./devel/setup.bash` (or the setup script for your favourite shell)
@@ -38,9 +38,13 @@ So, to build the package including the firmware fot the Arduino Micro, run:
 
 ## Running
 
-Just source the workspace's setup script and run `rosrun rosserial_python serial_node.py /dev/ttyACM0`. Start the `/bno055/imu` and `/bno055/calib_status` publishers by sending a `std_msgs/Bool` `true` message to the `/bno055/enable` subscriber.
+Just source the workspace's setup script and run `rosrun rosserial_python serial_node.py /dev/ttyACM0`. Start the `/bno055/imu` and `/bno055/calib_status` publishers by sending a `std_msgs/Bool` `true` message to the `/bno055/enable` subscriber. The `imu_publisher_node` subscribes to the compact ros_adafruit_bno055/Imu messages and publishes full sensor_msgs/Imu messages (including covariances).
+
+There is also a `rosserial_adafruit_bno055.launch` file that launches both the rosserial node and a republisher node and sends an enable command to the IMU node. The launch file accepts two parameters: `bno055_port` which specifies the IMU node's device and `bno055_frame_id` which specifies the frame_id used in the full sensor_msgs/Imu message.
 
 The calibration status of the system, accelerometer, gyroscope and magnetometer is given with integers from 0 to 3, where 0 means uncalibrated and 3 means fully calibrated.
+
+To visualize the orientation vector, you can use rqt's pose view plugin. Just open the plugin (`Plugins`, `Visualization`, `Pose View`) and the topic monitor (`Plugins`, `Topics`, `Topic Monitor`) and drag the `/bno055/imu` topic (if you are running the republisher node too, you can also use the `/imu` topic) from the topic monitor to the pose view.
 
 ## License
 
