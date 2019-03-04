@@ -3,7 +3,7 @@
   <arg name="bno055_port" default="/dev/ttyACM0"/>
   <arg name="bno055_frame_id" default="imu_link"/>
 
-  <node pkg="ros_adafruit_bno055" type="imu_publisher_node" name="imu_publisher_node"
+  <node pkg="rosserial_adafruit_bno055" type="imu_publisher_node" name="imu_publisher_node"
         args="&#x002d;&#x002d;frame-id $(arg bno055_frame_id)"
         respawn="true" respawn_delay="4" required="false" output="screen"/>
   <node pkg="rosserial_python" type="serial_node.py" name="imu_serial_node"

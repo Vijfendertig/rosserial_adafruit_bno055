@@ -26,7 +26,7 @@ link_directories(
 
 generate_arduino_firmware(arduino_micro
   SRCS arduino_micro_imu_node.cpp
-       ros_adafruit_bno055.cpp
+       rosserial_adafruit_bno055.cpp
        ${ARDUINO_SDK_PATH}/hardware/arduino/avr/libraries/Wire/src/Wire.cpp
        ${ARDUINO_SDK_PATH}/hardware/arduino/avr/libraries/Wire/src/utility/twi.c
        libraries/Adafruit_BNO055/Adafruit_BNO055.cpp

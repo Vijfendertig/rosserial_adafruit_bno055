@@ -41,7 +41,7 @@ int main (int argc, char ** argv) {
 
   // And GO!
   {
-    ros_adafruit_bno055::ImuPublisher imu_publisher{variables["frame-id"].as<std::string>()};
+    rosserial_adafruit_bno055::ImuPublisher imu_publisher{variables["frame-id"].as<std::string>()};
     ros::spin();
   }
 

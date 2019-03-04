@@ -4,12 +4,12 @@
 
 #include "arduino_micro_ros.h"
 #include <std_msgs/Bool.h>
-#include <ros_adafruit_bno055/Imu.h>
-#include <ros_adafruit_bno055/CalibrationStatus.h>
+#include <rosserial_adafruit_bno055/Imu.h>
+#include <rosserial_adafruit_bno055/CalibrationStatus.h>
 #include <Adafruit_BNO055.h>
 
 
-namespace ros_adafruit_bno055 {
+namespace rosserial_adafruit_bno055 {
 
   class RosAdafruitBNO055 {
     private:  // Data types and member variables.

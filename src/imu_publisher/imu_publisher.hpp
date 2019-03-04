@@ -15,11 +15,11 @@
 
 
 #include <ros/ros.h>
-#include <ros_adafruit_bno055/Imu.h>
-#include <ros_adafruit_bno055/CalibrationStatus.h>
+#include <rosserial_adafruit_bno055/Imu.h>
+#include <rosserial_adafruit_bno055/CalibrationStatus.h>
 
 
-namespace ros_adafruit_bno055 {
+namespace rosserial_adafruit_bno055 {
 
   class ImuPublisher {
     private:
@@ -28,7 +28,7 @@ namespace ros_adafruit_bno055 {
       ros::Subscriber subscriber_calibration_status_;
       ros::Publisher publisher_full_imu_;
       std::string frame_id_;
-      ros_adafruit_bno055::CalibrationStatus cached_calibration_status_;
+      rosserial_adafruit_bno055::CalibrationStatus cached_calibration_status_;
     public:
       ImuPublisher(const std::string & frame_id);
       ~ImuPublisher() = default;

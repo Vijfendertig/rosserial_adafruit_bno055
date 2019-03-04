@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(ros_adafruit_bno055)
+project(rosserial_adafruit_bno055)
 
 ## Compile as C++14.
 set(CMAKE_CXX_STANDARD 14)
@@ -137,7 +137,7 @@ target_link_libraries(imu_publisher_node
 )
 
 add_dependencies(imu_publisher_node
-  ros_adafruit_bno055_gencpp
+  rosserial_adafruit_bno055_gencpp
 )
 
 

@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
-#include "ros_adafruit_bno055.hpp"
+#include "rosserial_adafruit_bno055.hpp"
 
 
-namespace ros_adafruit_bno055 {
+namespace rosserial_adafruit_bno055 {
 
   RosAdafruitBNO055::RosAdafruitBNO055(ros::NodeHandle * node_handle, unsigned long int measurements_publish_interval, unsigned long int calibration_status_publish_interval):
     node_handle_{node_handle},

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>ros_adafruit_bno055</name>
+  <name>rosserial_adafruit_bno055</name>
   <version>0.0.0</version>
   <description>Rosserial Adafruit BNO055 IMU node</description>
 
@@ -10,7 +10,7 @@
   <maintainer email="maarten@vijfendertig.be">Maarten De Munck</maintainer>
   <author email="maarten@vijfendertig.be">Maarten De Munck</author>
 
-  <url type="repository">https://github.com/Vijfendertig/ros_adafruit_bno055</url>
+  <url type="repository">https://github.com/Vijfendertig/rosserial_adafruit_bno055</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>message_generation</build_depend>

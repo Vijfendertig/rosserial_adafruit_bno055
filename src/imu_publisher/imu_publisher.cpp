@@ -14,7 +14,7 @@
 #include <sensor_msgs/Imu.h>
 
 
-namespace ros_adafruit_bno055 {
+namespace rosserial_adafruit_bno055 {
 
   ImuPublisher::ImuPublisher(const std::string & frame_id):
     frame_id_{frame_id},

@@ -33,12 +33,12 @@ So, to build the package including the firmware for the Arduino Micro, run:
 
 - `catkin_make -DARDUINO_SDK_PATH=/opt/arduino-1.8.8` (to build everything except the firmware)
 - `. ./devel/setup.bash` (or the setup script for your favourite shell)
-- `catkin_make ros_adafruit_bno055_firmware_arduino_micro` (to build the firmware)
-- `catkin_make ros_adafruit_bno055_firmware_arduino_micro-upload` (to upload the firmware to your Arduino Micro)
+- `catkin_make rosserial_adafruit_bno055_firmware_arduino_micro` (to build the firmware)
+- `catkin_make rosserial_adafruit_bno055_firmware_arduino_micro-upload` (to upload the firmware to your Arduino Micro)
 
 ## Running
 
-Just source the workspace's setup script and run `rosrun rosserial_python serial_node.py /dev/ttyACM0`. Start the `/bno055/imu` and `/bno055/calib_status` publishers by sending a `std_msgs/Bool` `true` message to the `/bno055/enable` subscriber. The `imu_publisher_node` subscribes to the compact ros_adafruit_bno055/Imu messages and publishes full sensor_msgs/Imu messages (including covariances).
+Just source the workspace's setup script and run `rosrun rosserial_python serial_node.py /dev/ttyACM0`. Start the `/bno055/imu` and `/bno055/calib_status` publishers by sending a `std_msgs/Bool` `true` message to the `/bno055/enable` subscriber. The `imu_publisher_node` subscribes to the compact rosserial_adafruit_bno055/Imu messages and publishes full sensor_msgs/Imu messages (including covariances).
 
 There is also a `rosserial_adafruit_bno055.launch` file that launches both the rosserial node and a republisher node and sends an enable command to the IMU node. The launch file accepts two parameters: `bno055_port` which specifies the IMU node's device and `bno055_frame_id` which specifies the frame_id used in the full sensor_msgs/Imu message.
 

@@ -5,11 +5,11 @@
 
 #include <Arduino.h>
 #include "arduino_micro_ros.h"
-#include "ros_adafruit_bno055.hpp"
+#include "rosserial_adafruit_bno055.hpp"
 
 
 ros::NodeHandle node_handle;
-ros_adafruit_bno055::RosAdafruitBNO055 ros_sensor(&node_handle, 20UL, 1000UL);
+rosserial_adafruit_bno055::RosAdafruitBNO055 ros_sensor(&node_handle, 20UL, 1000UL);
 
 
 void setup()
